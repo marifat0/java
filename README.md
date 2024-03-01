@@ -1,2 +1,2 @@
-# java
-java related project
+# Simple Web Services
+Spring Boot RESTful API mini-project
