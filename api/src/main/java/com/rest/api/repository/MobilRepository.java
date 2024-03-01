@@ -1,8 +1,8 @@
-package com.rest.repository;
+package com.rest.api.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.rest.payroll.Mobil;
+import com.rest.api.payroll.Mobil;
 
 public interface MobilRepository extends JpaRepository<Mobil, Long> {
     

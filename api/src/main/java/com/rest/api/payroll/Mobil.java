@@ -1,4 +1,4 @@
-package com.rest.payroll;
+package com.rest.api.payroll;
 
 import java.util.Objects;
 
@@ -11,16 +11,20 @@ public class Mobil {
 
     private @Id @GeneratedValue Long id;
     private String merk;
+    private String carName;
     private String type;
-    private String cc;
+    private int cc;
+    private Double harga;
 
     // Default Constructor
     public Mobil() {}
     
     // Parameterized Constructor
-    public Mobil(String merk, String type, String cc) {
+    public Mobil(String merk, String type, String carName, int cc, Double harga) {
         this.merk = merk;
+        this.carName = carName;
         this.type = type;
+        this.harga = harga;
         this.cc = cc;
     }
 
@@ -36,7 +40,15 @@ public class Mobil {
         this.type = type;
     }
 
-    public void setCc(String cc) {
+    public String getCarName() {
+        return carName;
+    }
+
+    public void setCarName(String carName) {
+        this.carName = carName;
+    }
+
+    public void setCc(int cc) {
         this.cc = cc;
     }
 
@@ -52,8 +64,16 @@ public class Mobil {
         return type;
     }
 
-    public String getCc() {
+    public int getCc() {
         return cc;
+    }
+
+    public Double getHarga() {
+        return harga;
+    }
+
+    public void setHarga(Double harga) {
+        this.harga = harga;
     }
 
 
@@ -64,15 +84,15 @@ public class Mobil {
         return true;
         if (!(o instanceof Mobil))
         return false;
-        Mobil kreditKendaraan = new Mobil();
-        return Objects.equals(this.id, kreditKendaraan.id)
-            && Objects.equals(this.merk, kreditKendaraan.merk);
+        Mobil car = new Mobil();
+        return Objects.equals(this.id, car.id)
+            && Objects.equals(this.merk, car.merk);
     }
 
     // HashData
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.merk, this.type, this.cc);
+        return Objects.hash(this.id, this.merk, this.type, this.carName, this.cc, this.harga);
     }
 
     @Override
@@ -81,7 +101,9 @@ public class Mobil {
          + "id=" + this.id
          + "merk='" + this.merk + "\'"
          + "type='" + this.type + "\'"
+         + "carName='" + this.carName + "\'"
          + "cc='" + this.cc + "\'"
+         + "harga='" + this.harga + "\'"
          + "}";
     }
     
