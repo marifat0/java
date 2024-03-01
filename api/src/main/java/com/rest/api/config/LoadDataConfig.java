@@ -6,7 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.rest.api.payroll.Mobil;
+import com.rest.api.model.Mobil;
 import com.rest.api.repository.MobilRepository;
 
 @Configuration
