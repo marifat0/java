@@ -1,19 +1,33 @@
-package com.rest.api.payroll;
+package com.rest.api.model;
 
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 
 @Entity
+@Table(name = "mobil")
 public class Mobil {
 
     private @Id @GeneratedValue Long id;
+
+    @Column(name = "merk")
     private String merk;
-    private String carName;
+    
+    @Column(name = "type")
     private String type;
+
+    @Column(name = "car_name")
+    private String carName;
+
+    @Column(name = "cc")
     private int cc;
+
+    @Column(name = "harga")
     private Double harga;
 
     // Default Constructor
