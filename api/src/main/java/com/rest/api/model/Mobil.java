@@ -13,7 +13,10 @@ import jakarta.persistence.Table;
 @Table(name = "mobil")
 public class Mobil {
 
-    private @Id @GeneratedValue Long id;
+    @Id
+    @GeneratedValue
+    @Column(name = "car_id")
+    private Long id;
 
     @Column(name = "merk")
     private String merk;
