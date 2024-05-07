@@ -8,6 +8,10 @@ public class ApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApiApplication.class, args);
+        System.out.println("Hello, World!");
+        String name = null;
+        name = "Noel";
+        System.out.println("Name: " + name);
+        System.out.println();
 	}
-
 }
