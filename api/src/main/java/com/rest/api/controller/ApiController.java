@@ -53,5 +53,9 @@ public class ApiController {
         Mobil mobil = carService.getMobilById(Long.valueOf(Id));
         return new ResponseEntity<>(mobil ,HttpStatus.OK);
     }
-    
-}
+    @GetMapping("/something")
+        public String getSomething (@RequestParam(required = false) int Id) {
+        System.out.println("Id");
+        return "OK";
+  }
+} 

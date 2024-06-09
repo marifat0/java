@@ -29,7 +29,9 @@ public class Index
 
     public Date getCurrentTime()
     {
-        return new Date();
+        Date dateTest = new Date();
+        System.out.println("getCurrentDate: " + dateTest.toString());
+        return dateTest;
     }
 
     void onActionFromIncrement()
