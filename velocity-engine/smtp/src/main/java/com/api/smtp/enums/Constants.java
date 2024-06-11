@@ -8,9 +8,10 @@ public enum Constants {
     ATTACHMENT_PATH("/home/hanif/attachment.txt"),
 
     // POCKET ACCOUNT
-    PA_SAVING_MAIN("PA Saving Main"),
-    PA_SAVING_SPENDING("PA Saving Spending"),
-    PA_SAVING_TARGET("PA Saving Target");
+    PA_MAIN("PA Saving Main"),
+    PA_SAVING("PA Saving"),
+    PA_SPENDING("PA Saving Spending"),
+    PA_TARGET("PA Saving Target");
 
     private String value;
 
