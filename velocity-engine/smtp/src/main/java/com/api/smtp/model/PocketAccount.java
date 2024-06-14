@@ -18,6 +18,12 @@ public class PocketAccount {
     public PocketAccount() {
     }
 
+    public PocketAccount(Long ID, String type, String accountNumber) {
+        this.ID = ID;
+        this.type = type;
+        this.accountNumber = accountNumber;
+    }
+
     public PocketAccount(Long ID, String type, String cif, String accountNumber, BigDecimal balance, String currency, String description) {
         this.ID = ID;
         this.type = type;

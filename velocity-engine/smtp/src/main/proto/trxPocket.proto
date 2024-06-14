@@ -1,0 +1,152 @@
+// There's 3 type of transactions:
+// 1. Deposit
+// 2. Debit
+// 3. Credit
+// If debit it will be negative, if credit it will be positive, if deposit it will be positive
+// The balance will be the sum of all transactions
+//
+// The transaction will be stored in a list
+// Example of Deposit:
+// {
+//  "status": "success",
+//  "data": [
+//      "transactionId": "1",
+//      "transactionType": "deposit",
+//      "amount": 100000,
+//      "timestamp": "2021-01-01T00:00:00Z"
+//      "from": {},
+//      "to": 
+//      {
+//          "pocketId": "123456",
+//          "pocketType": "main"
+//          "pocketAccount": "1234567890"
+//      }
+//      "description": ""
+//  ]
+//  "totalBalance": 100000
+// }
+// If deposit, the from will be empty, and to will be always main
+//
+// Example of Debit:
+// {
+//  "status": "success",
+//  "data": [
+//      "transactionId": "1",
+//      "transactionType": "debit",
+//      "amount": -50000,
+//      "timestamp": "2021-01-01T00:00:00Z"
+//      "from":
+//      {
+//          "pocketId": "123456",
+//          "pocketType": "main"
+//          "pocketAccount": "1234567890"
+//      }
+//      "to":
+//      {
+//          "pocketId": "123456",
+//          "pocketType": "saving"
+//          "pocketAccount": "1234567890"
+//      }
+//      "description": ""
+//  ]
+//  "totalBalance": 50000
+// }
+//
+// Example of Credit:
+// {
+//  "status": "success",
+//  "data": [
+//      "transactionId": "1",
+//      "transactionType": "credit",
+//      "amount": 50000,
+//      "timestamp": "2021-01-01T00:00:00Z"
+//      "from":
+//      {
+//          "pocketId": "123456",
+//          "pocketType": "saving"
+//          "pocketAccount": "1234567890"
+//      }
+//      "to":
+//      {
+//          "pocketId": "123456",
+//          "pocketType": "main"
+//          "pocketAccount": "1234567890"
+//      }
+//      "description": ""
+//  ]
+//  "totalBalance": 100000
+// }
+//
+// If Debit to non-pocket like payment & transfer, the to will be different.
+// "to" will be like this:
+// (1) Payment
+// {
+//      "referenceNumber": "FLY-123456",
+//      "productCode": "FLY",
+//      "billerCode": "FLY",
+//      "billerName": "Air Asia Ticket",
+// }
+// (2) Transfer
+// {
+//      "referenceNumber": "BCA-123456",
+//      "bankCode": "BCA",
+//      "bankName": "Bank Central Asia",
+//      "accountNumber": "1234567890",
+//      "accountName": "John Doe"
+// }
+//
+// "from" will be always be (main/saving/spending) type of pocket.
+// "to" will be always be (main/saving/spending) type of pocket or payment/transfer.
+
+syntax = "proto3";
+
+package com.api.smtp.proto;
+
+option java_multiple_files = true;
+option java_package = "com.api.smtp.proto";
+option java_outer_classname = "TransactionProto";
+
+import "google/protobuf/timestamp.proto";
+
+message Pocket {
+    string pocketId = 1;
+    string pocketType = 2;
+    string pocketAccount = 3;
+}
+
+message Payment {
+    string referenceNumber = 1;
+    string productCode = 2;
+    string billerCode = 3;
+    string billerName = 4;
+}
+
+message Transfer {
+    string referenceNumber = 1;
+    string bankCode = 2;
+    string bankName = 3;
+    string accountNumber = 4;
+    string accountName = 5;
+}
+
+message Transaction {
+    string transactionId = 1;
+    string transactionType = 2;
+    int64 amount = 3;
+    google.protobuf.Timestamp timestamp = 4;
+    Pocket from = 5;
+    oneof to {
+        Pocket pocket = 6;
+        Payment payment = 7;
+        Transfer transfer = 8;
+    }
+    string description = 9;
+}
+
+message TransactionResponse {
+    string status = 1;
+    repeated Transaction data = 2;
+    int64 totalBalance = 3;
+}
+
+
