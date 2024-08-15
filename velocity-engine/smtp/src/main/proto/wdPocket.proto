@@ -1,0 +1,10 @@
+// Use proto to define API response of an endpoint
+// url: /pocketWithdraw
+// method: POST
+// 
+// response specification:
+
+// {
+//     "status": "success",
+//     "transactionId": "1",
+//     "transaction

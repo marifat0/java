@@ -5,7 +5,8 @@ public enum Constants {
     EMAIL("mmarifatalhanif@gmail.com"),
     SUBJECT("Test email"),
     BODY("This is a test email"),
-    ATTACHMENT_PATH("/home/hanif/attachment.txt"),
+    ATTACHMENT_PATH("/home/hanif/DjpReceiptView.html"),
+    IMAGE_PATH("/home/hanif/project/BANK-INDEX/logo_index.png"),
 
     // POCKET ACCOUNT
     PA_MAIN("PA Main"),

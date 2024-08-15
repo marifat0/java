@@ -10,6 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.smtp.enums.Constants;
@@ -19,6 +20,8 @@ import com.api.smtp.proto.Pocket;
 import com.api.smtp.proto.Transaction;
 import com.api.smtp.proto.TransactionResponse;
 import com.api.smtp.proto.Transfer;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.Timestamp;
 import com.google.protobuf.util.JsonFormat;
 
@@ -26,7 +29,7 @@ import com.google.protobuf.util.JsonFormat;
 @RequestMapping("/pocket")
 public class PocketAccountController {
 
-    Log log = LogFactory.getLog(PocketAccountController.class);
+    private Log log = LogFactory.getLog(PocketAccountController.class);
 
     @PostMapping("/pocketAccount")
     public Map<String, Map<String, List<PocketAccount>>> pocketAccount(
@@ -295,7 +298,7 @@ public class PocketAccountController {
 
         Transaction transaction1 = Transaction.newBuilder()
             .setTransactionId("1")
-            .setTransactionType("deposit")
+            .setTransactionType(Constants.TRX_TYPE_DEPOSIT.getValue())
             .setAmount(10000000)
             .setTimestamp(Timestamp.newBuilder().build())
             .setFrom(pocket1.toBuilder().build())
@@ -305,7 +308,7 @@ public class PocketAccountController {
 
         Transaction transaction2 = Transaction.newBuilder()
             .setTransactionId("2")
-            .setTransactionType("debit")
+            .setTransactionType(Constants.TRX_TYPE_DEBIT.getValue())
             .setAmount(-50000)
             .setTimestamp(Timestamp.newBuilder().build())
             .setFrom(pocket3.toBuilder().build())
@@ -315,7 +318,7 @@ public class PocketAccountController {
 
         Transaction transaction3 = Transaction.newBuilder()
             .setTransactionId("3")
-            .setTransactionType("credit")
+            .setTransactionType(Constants.TRX_TYPE_CREDIT.getValue())
             .setAmount(50000)
             .setTimestamp(Timestamp.newBuilder().build())
             .setFrom(pocket2.toBuilder().build())
@@ -325,7 +328,7 @@ public class PocketAccountController {
 
         Transaction transaction4 = Transaction.newBuilder()
             .setTransactionId("4")
-            .setTransactionType("debit")
+            .setTransactionType(Constants.TRX_TYPE_DEBIT.getValue())
             .setAmount(-50000)
             .setTimestamp(Timestamp.newBuilder().build())
             .setFrom(pocket3.toBuilder().build())
@@ -335,7 +338,7 @@ public class PocketAccountController {
 
         Transaction transaction5 = Transaction.newBuilder()
             .setTransactionId("5")
-            .setTransactionType("debit")
+            .setTransactionType(Constants.TRX_TYPE_DEBIT.getValue())
             .setAmount(-50000)
             .setTimestamp(Timestamp.newBuilder().build())
             .setFrom(pocket4.toBuilder().build())
@@ -389,12 +392,13 @@ public class PocketAccountController {
     }
 
     @RequestMapping("/historyPocketAccount")
-    public TransactionResponse  historyPocketAccount(
+    public com.api.smtp.model.Transaction  historyPocketAccount(
     @RequestBody String customerID,
     @RequestBody String deviceID,
     @RequestBody String sessionID,
     @RequestBody String pocketID,
     @RequestBody String pocketType) {
+
         log.info("customerID: " + customerID);
         log.info("deviceID: " + deviceID);
         log.info("sessionID: " + sessionID);
@@ -446,7 +450,7 @@ public class PocketAccountController {
 
         Transaction transaction1 = Transaction.newBuilder()
             .setTransactionId("1")
-            .setTransactionType("deposit")
+            .setTransactionType(Constants.TRX_TYPE_DEPOSIT.getValue())
             .setAmount(100000000)
             .setTimestamp(Timestamp.newBuilder().build())
             .setFrom(pocket1.toBuilder().build())
@@ -456,7 +460,7 @@ public class PocketAccountController {
 
         Transaction transaction2 = Transaction.newBuilder()
             .setTransactionId("2")
-            .setTransactionType("debit")
+            .setTransactionType(Constants.TRX_TYPE_DEBIT.getValue())
             .setAmount(-50000)
             .setTimestamp(Timestamp.newBuilder().build())
             .setFrom(pocket3.toBuilder().build())
@@ -466,7 +470,7 @@ public class PocketAccountController {
 
         Transaction transaction3 = Transaction.newBuilder()
             .setTransactionId("3")
-            .setTransactionType("debit")
+            .setTransactionType(Constants.TRX_TYPE_DEBIT.getValue())
             .setAmount(-50000)
             .setTimestamp(Timestamp.newBuilder().build())
             .setFrom(pocket3.toBuilder().build())
@@ -476,7 +480,7 @@ public class PocketAccountController {
 
         Transaction transaction4 = Transaction.newBuilder()
             .setTransactionId("4")
-            .setTransactionType("debit")
+            .setTransactionType(Constants.TRX_TYPE_DEBIT.getValue())
             .setAmount(-50000)
             .setTimestamp(Timestamp.newBuilder().build())
             .setFrom(pocket3.toBuilder().build())
@@ -486,7 +490,7 @@ public class PocketAccountController {
 
         Transaction transaction5 = Transaction.newBuilder()
             .setTransactionId("5")
-            .setTransactionType("debit")
+            .setTransactionType(Constants.TRX_TYPE_DEBIT.getValue())
             .setAmount(-50000)
             .setTimestamp(Timestamp.newBuilder().build())
             .setFrom(pocket3.toBuilder().build())
@@ -514,15 +518,80 @@ public class PocketAccountController {
             .addData(transaction5)
             .setTotalBalance(totalBalance)
             .build();
-
+            String json = "";
         try {
-            String json = JsonFormat.printer().print(response);
+            json = JsonFormat.printer().print(response);
             log.info("json: " + json);
-            JsonFormat.parser().merge(json, response.toBuilder());
             } catch (Exception e) {
                 log.error("Error: " + e.getMessage());
             }
 
-        return response;
+        com.api.smtp.model.Transaction trx;
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            trx = mapper.readValue(json, com.api.smtp.model.Transaction.class);
+            return trx;
+        } catch (Exception e) {
+            log.error("Error: " + e.getMessage());
+            return null;
+        }
     }
+
+    @RequestMapping("/pocketWithdrawal")
+    public com.api.smtp.model.Transaction pocketWithdrwal(
+    @RequestParam String customerID,
+    @RequestParam String deviceID,
+    @RequestParam String sessionID,
+    @RequestParam String pocketID,
+    @RequestParam String pocketType,
+    @RequestParam String amount) {
+
+        log.info("customerID: " + customerID);
+        log.info("deviceID: " + deviceID);
+        log.info("sessionID: " + sessionID);
+        log.info("pocketID: " + pocketID);
+        log.info("pocketType: " + pocketType);
+        log.info("amount: " + amount);
+
+        // Just dummy data
+        // represent the user withdraw money from pocket account
+        // and return the response with the remaining balance
+        
+        Pocket pocket = Pocket.newBuilder()
+            .setPocketId(pocketID)
+            .setPocketType(pocketType)
+            .setPocketAccount("1234567890")
+            .build();
+
+
+        Transaction t1 = Transaction.newBuilder()
+            .setTransactionId("1")
+            .setTransactionType(Constants.TRX_TYPE_WITHDRAW.getValue())
+            .setAmount(Long.parseLong(amount))
+            .setTimestamp(Timestamp.newBuilder().build())
+            .setFrom(pocket)
+            .setDescription("Withdraw money from pocket account")
+            .build();
+
+        try {
+            String trxJson = JsonFormat.printer().print(t1);
+            log.info("trxJson: " + trxJson);
+
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            mapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
+
+            com.api.smtp.model.Transaction trx = new com.api.smtp.model.Transaction();
+            trx.setStatus("Success");
+            trx = mapper.readValue(trxJson, com.api.smtp.model.Transaction.class);
+            log.info("trx: " + trx.toString());
+
+            return trx;
+        } catch (Exception e) {
+            log.error("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
 }

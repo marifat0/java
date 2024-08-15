@@ -56,4 +56,24 @@ public class MailController {
             return "Error sending email with attachment";
         }
     }
+
+    @GetMapping("/sendImg")
+    public String sendMWI() {
+        try {
+            String imagePath = Constants.IMAGE_PATH.getValue();
+            String subject = Constants.SUBJECT.getValue();
+            String body = Constants.BODY.getValue();
+
+            log.info("Sending email with image");
+            log.info("Image path: " + imagePath);
+            log.info("Subject: " + subject);
+            log.info("Body: " + body);
+            String to = Constants.EMAIL.getValue();
+            mailService.sendMailWithAttachmentPdf(to, subject, body, imagePath);
+            return "Email sent with image!";
+        } catch (Exception e) {
+            log.error("Error sending email with image", e.getCause());
+            return "Error sending email with image";
+        }
+    }
 }
