@@ -1,0 +1,188 @@
+<table
+style="border-style: none;
+        border-collapse: collapse;
+        margin: 1rem;
+        display: inline-block;">
+<thead style="width: max-content;
+                border: 1px solid black;">
+    <tr>
+        <td style="padding: 0em 1em 0em 1em;
+                    border: 1px solid black;
+                    text-align: center;">
+            <img src="https://www.example.com/path-to-your-image/image.jpg" alt="Bank Index"/>
+        </td>
+        <td colspan="2" style="padding: 0;
+                                border: 1px solid black;
+                                text-align: center;">
+            <p style="padding: 1em;">Bukti Penerimaan Negara</p>
+            <hr style="position:relative;" />
+            <p style="padding: 1em;">Penerimaan Pajak</p>
+        </td>
+        <td style="padding: 0em 0em 0em 0em;
+                   border: 1px solid black;
+                   text-align: center;">
+            <p style="padding: 0em 1em 0em 1em;
+                        text-align: center;">
+                Kementrian Keuangan
+            </p>
+        </td>
+    </tr>
+</thead>
+<tbody border="none">
+    <tr>
+        <td>
+            <p>
+                Data Pembayaran:
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p style="margin: 0;">
+                Tanggal dan Jam Bayar
+            </p>
+        </td>
+        <td>
+            <p style="margin: 0;">
+            :    ${view.transactionDate}
+            </p>
+        </td>
+        <td>
+            <p style="margin: 0;
+                        margin-left: 10cap;">
+                NTB/NTP
+            </p>
+        </td>
+        <td>
+            <p style="margin: 0;">
+            :    ${view.nop}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p style="margin: 0;">
+                Tanggal Buku
+            </p>
+        </td>
+        <td>
+            <p style="margin: 0;">
+            :    ${view.strTransactionDate}
+            </p>
+        </td>
+        <td>
+            <p style="margin: 0;
+                        margin-left: 10cap;">
+                NTPN
+            </p>
+        </td>
+        <td>
+            <p style="margin: 0;">
+            :   ${view.ntpn}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p style="margin: 0;">
+                Kode Cabang Bank
+            </p>
+        </td>
+        <td>
+            <p style="margin: 0;">
+            :    ${view.kodeKppbc}
+            </p>
+        </td>
+        <td>
+            <p style="margin: 0;
+                        margin-left: 10cap;">
+                STAN
+            </p>
+        </td>
+        <td>
+            <p style="margin: 0;">
+            :    ${view.kodeSatker}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>
+                Data Setoran:
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p style="margin: 0;">
+                Kode Billing
+            </p>
+        </td>
+        <td>
+            <p style="margin: 0;">
+            :    ${view.customerReference}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p style="margin: 0;">
+                Nama Wajib Pajak
+            </p>
+        </td>
+        <td>
+            <p style="margin: 0;">
+            :    ${view.namaWajibPajak}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p style="margin: 0;">
+                NPWP
+            </p>
+        </td>
+        <td>
+            <p style="margin: 0;">
+            :    ${view.npwp}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p style="margin: 0;">
+                Alamat
+            </p>
+        </td>
+        <td>
+            <p style="margin: 0;">
+            :    ${view.alamatWajibPajak}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p style="margin: 0;">
+                Jumlah Detil
+            </p>
+        </td>
+        <td>
+            <p style="margin: 0;">
+            :    ${view.jumlahDetil}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p style="margin: 0;">
+                Jumlah Setoran
+            </p>
+        </td>
+        <td>
+            <p style="margin: 0;">
+            :    ${view.getStrAmount}
+            </p>
+        </td>
+    </tr>
+</tbody>
+</table>
