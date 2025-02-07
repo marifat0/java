@@ -1,0 +1,29 @@
+## Ignore java target directory
+target/*
+api/target/*
+asyelole/target/*
+
+##   asyelole/.classpath
+##   asyelole/.project
+##   asyelole/.settings/org.eclipse.jdt.apt.core.prefs
+##   asyelole/.settings/org.eclipse.jdt.core.prefs
+##   asyelole/.settings/org.eclipse.m2e.core.prefs
+
+## Ignore all files in the asyelole directory
+asyelole/.classpath
+asyelole/.project
+asyelole/.settings/*
+
+
+##   velocity-engine/smtp/.classpath
+##   velocity-engine/smtp/.project
+##   velocity-engine/smtp/.settings/org.eclipse.core.resources.prefs
+##   velocity-engine/smtp/.settings/org.eclipse.jdt.apt.core.prefs
+##   velocity-engine/smtp/.settings/org.eclipse.jdt.core.prefs
+##   velocity-engine/smtp/.settings/org.eclipse.m2e.core.prefs
+
+## Ignore all files in the velocity-engine/smtp directory
+velocity-engine/smtp/.classpath
+velocity-engine/smtp/.project
+velocity-engine/smtp/.settings/*
+velocity-engine/smtp/target/*
