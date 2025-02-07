@@ -120,7 +120,31 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
                     </systemProperties>
                 </configuration>
             </plugin>
-        </plugins>
+
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.3.2</version> 
+            <configuration>
+                <warName>asyelole</warName>
+                <failOnMissingWebXml>false</failOnMissingWebXml> <!-- Opsional, jika tanpa web.xml -->
+            </configuration>
+        </plugin>
+
+         <plugin>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-maven-plugin</artifactId>
+      <version>9.4.51.v20230217</version>
+      <configuration>
+        <scanIntervalSeconds>10</scanIntervalSeconds>
+        <webApp>
+          <war>${project.basedir}/target/asyelole.war</war>
+        </webApp>
+      </configuration>
+    </plugin>
+    </plugins>
+
     </build>
 
     <reporting/>

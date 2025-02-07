@@ -1,6 +1,7 @@
 BIKININ WAR BUAT APP YG /asyelole
 
-cara run nya: mvn jetty:run
+cara build : mvn clean package
+cara run : mvn jetty:run-war
 
 terus open http://localhost:8080/asyelole
 
